@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phishing Detector</title>
+</head>
+<body>
+    <h2>Enter URL to Check</h2>
+    <form id="urlForm">
+        <input type="text" name="url" placeholder="Enter URL" required>
+        <button type="submit">Check</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('urlForm').onsubmit = async function(e) {
+            e.preventDefault();
+            let formData = new FormData(this);
+            let response = await fetch('/predict', { method: 'POST', body: formData });
+            let data = await response.json();
+            document.getElementById('result').innerText = data.result;
+        }
+    </script>
+</body>
+</html>
